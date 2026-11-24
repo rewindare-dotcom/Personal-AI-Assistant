@@ -24,22 +24,22 @@ After a disconnect, send `task.status {conversation, turn_id}` as a new Hub call
 
 A missing record means delivery is uncertain. An accepted turn without a terminal record after executor restart is interrupted and may already have had effects. Recovery never resends the turn. `stop {conversation, turn_id}` requests cancellation of the exact live turn. Its `stopped` field acknowledges the request, and the terminal state confirms the outcome. Once a stopped turn ends, it is retained as `cancelled`; late answer text cannot change it to `completed`. On Android, a persistent reply must follow the user message saved for that turn and precede the next user message. A busy or compacting session, a send that did not start, or an empty or errored result reports failure instead of reusing an older reply. Approval scopes follow the existing task rules. The relay forwards calls without storing the transcript or results.
 
-Sign in to the same nanoMuse Cloud account on a phone, a computer and a browser,
+Sign in to the same 小满 Cloud account on a phone, a computer and a browser,
 and they see each other. Each device runs its own Muse with its own hands (the
 phone's apps and sandbox, the computer's shell and screen), and any of them can
 ask any other for something, from any network. The web console has no hands of
 its own; it is a front door to the rest.
 
 ```
-phone ──┐                         ┌── computer (nanoMuse Desktop)
-        ├──▶  nanoMuse Cloud  ◀───┤
+phone ──┐                         ┌── computer (小满 Desktop)
+        ├──▶  小满 Cloud  ◀───┤
 web  ───┘        /v1/hub          └── another phone / computer
 ```
 
 Every device opens one outbound WebSocket to the relay and keeps it. Nothing
 listens on the device, nothing needs a port forwarded or a shared Wi-Fi; the
 relay only routes frames between devices of one account and never looks inside
-a task. This is the way to add a computer: install nanoMuse Desktop on it and
+a task. This is the way to add a computer: install 小满 Desktop on it and
 sign in with the same account; nothing to download by hand, no code to type.
 It is the only way in: the stand-alone host script that paired over the local
 network (0.1.13–0.1.23) is gone, so a computer that is missing from the phone's
@@ -54,7 +54,7 @@ On the phone, in any chat:
 - "让电脑把项目编译一遍，把日志发给我": `nanomuse-pc task "…" --on desk`
 - "电脑截个图给我看": `nanomuse-pc screen --on desk`
 
-On the computer, in nanoMuse Desktop (or `nanomuse chat` in a terminal):
+On the computer, in 小满 Desktop (or `nanomuse chat` in a terminal):
 
 - "on my phone, take a screenshot": `device_screen`
 - "tell the phone's Muse to read me the last notification": `delegate`
@@ -93,11 +93,11 @@ Two kinds of request travel over the hub:
   `timeout`, one the target's Muse could not run with `failed`. A task that reached its
   conversation but never started (the step was refused before the model was asked) fails
   too, with `failed`, rather than answering with no words: the asking device shows that
-  sentence and not an empty result. On nanoMuse Desktop a chat of the conversation that
+  sentence and not an empty result. On 小满 Desktop a chat of the conversation that
   was archived since the last delivery is brought back when a task arrives, as opening the
   chat and typing in it does.
   `stream: true` says the caller draws each `text` in place of the text since the last `tool`;
-  nanoMuse Desktop then also sends `text {text, interim, partial: true}` with the text of the
+  小满 Desktop then also sends `text {text, interim, partial: true}` with the text of the
   message the model is writing, at most every 250 ms, and the finished message as before. A
   caller that does not ask gets each message once (Android's `nanomuse-pc task` lists every
   `text` as a step); the runtime ignores `stream` for now.
@@ -147,7 +147,7 @@ Two kinds of request travel over the hub:
   in [the coding contract](coding-agents.md#structured-browsing-protocol-2).
 
 Each device decides what it lets others do. On the phone, *Let other devices
-operate this phone* (*Settings → nanoMuse Cloud → Devices*) off makes the phone
+operate this phone* (*Settings → 小满 Cloud → Devices*) off makes the phone
 answer `info` and nothing else; it still sees and drives the others. The
 runtime's `info` then names the computer and its system only (no account
 name, home or working directory, no shell) and lists `info` as the one
@@ -156,7 +156,7 @@ With it on, a raw action that does something *to* the device (`shell`, `files`,
 `file.get`, `file.put`, `open`, `screen`, `coding.send`, `coding.stop`) is first
 agreed to by the person at that device: the usual approval card, *once* or
 *always for that device*; the standing answer is a grant
-(`remote_control:<device id>`) under Permissions. nanoMuse Desktop asks with the
+(`remote_control:<device id>`) under Permissions. 小满 Desktop asks with the
 same card by default; its *Remote control without asking* (*Settings → Devices*)
 lets every device of the account run things there without the card. Nobody there, and the caller
 hears `not_allowed` when the card expires. `info` and `notify` never ask; a
@@ -168,7 +168,7 @@ any device of the account may answer.
 
 ### A computer's own cards on the phone
 
-A scheduled task on nanoMuse Desktop runs while nobody may be at the computer, so the cards of
+A scheduled task on 小满 Desktop runs while nobody may be at the computer, so the cards of
 its run also go to the account's phones. No call stands behind such a card, so it travels as a
 push (relay 0.31, [below](#frames)); the computer sends it only when `welcome.server.features`
 lists `event_push`, and the relay passes it only to devices whose `hello` announces
@@ -177,7 +177,7 @@ chat somebody is typing in on the computer or in the web console stays where it 
 person is there), a card inside a task another device sent goes back to that device inside the
 call ([above](#what-you-can-say)), and the Python runtime (`nanomuse serve`) pushes nothing yet — its
 scheduled tasks' cards wait in the web app
-([#704](https://github.com/nano-muse/nanoMuse/issues/704)):
+([#704](https://github.com/nano-muse/小满/issues/704)):
 
 ```
 → event {to:"*", body:{stage:"approval", approval_id, preview, preview_zh, reason, app,
@@ -362,7 +362,7 @@ from a later code or password sign-in (the phone signed in again without
 signing out, the runtime's vault was reset, a sign-out that never reached the
 relay): the older key still opens the account but no longer speaks for the
 device. A revoked or lapsed key releases its id. A session key
-(`/v1/auth/session-key`, nanoMuse Web's containers) registers an id nobody
+(`/v1/auth/session-key`, 小满 Web's containers) registers an id nobody
 holds and never takes one over. Existing clients keep their keys and register
 at their next connection; clients that send the identity at sign-in bind it
 there.
@@ -434,13 +434,13 @@ computer's own hands) is in [every-device.md](every-device.md).
   honoured), `HubService`
   (foreground, `remoteMessaging`). `nanomuse-pc` (`io.github.nanomuse.reach`)
   reaches the hub devices from the phone's sandbox shell.
-- nanoMuse Desktop: [`harness/dsh-nanomuse/src/hub.ts`](../harness/dsh-nanomuse/src/hub.ts)
+- 小满 Desktop: [`harness/dsh-nanomuse/src/hub.ts`](../harness/dsh-nanomuse/src/hub.ts)
   (the socket, reconnect), [`harness/dsh-nanomuse/src/actions.ts`](../harness/dsh-nanomuse/src/actions.ts)
   (what this computer does for others, the card before a remote action); see [desktop.md](desktop.md).
 - iOS: [`NanoMuse/NanoMuseHub.swift`](../android/src/ios/NanoMuse/NanoMuseHub.swift):
   `info`, `open`, `notify`, `task` (its `language` is honoured), `stop`; `screen` is
   refused (`no_screen`), the shell and files actions with `not_supported`. A step of a
-  `task` that needs approval is not sent back as an `event`: with nanoMuse in front the
+  `task` that needs approval is not sent back as an `event`: with 小满 in front the
   phone shows its own card, in the background the step is declined and the answer says so.
   The other way round, a `task` the phone sends (`@〈device〉`,
   [`NanoMuseDeviceMention.swift`](../android/src/ios/NanoMuse/NanoMuseDeviceMention.swift))

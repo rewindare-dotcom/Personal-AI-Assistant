@@ -1,6 +1,6 @@
 # Personal-AI-Assistant
 
-个人 AI 助手项目，基于开源项目 nanoMuse 改造。
+个人 AI 助手项目，基于开源项目 小满 改造。
 
 原项目为 GPL-3.0-or-later，本项目作为衍生作品同样以此协议发布，详见 LICENSE。
 
@@ -24,4 +24,4 @@
 
 ## 协议与来源
 
-原始项目 nanoMuse，作者为 nano-muse 社区。原始协议 GPL-3.0-or-later，本项目继承。第三方组件见 THIRD_PARTY_NOTICES.md。
+原始项目 小满，作者为 nano-muse 社区。原始协议 GPL-3.0-or-later，本项目继承。第三方组件见 THIRD_PARTY_NOTICES.md。

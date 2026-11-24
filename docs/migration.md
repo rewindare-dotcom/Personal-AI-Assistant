@@ -1,13 +1,13 @@
 # Migrating from another assistant
 
 You can bring selected memories and text documents into the desktop app, then reconnect
-the services you use. nanoMuse does not currently import a Muse export ZIP as a complete
+the services you use. Xiaoman does not currently import a Muse export ZIP as a complete
 account, restore its conversations, or convert its connectors and tags automatically.
 Keep the original export while checking what has moved.
 
 ## What can be moved
 
-| Exported material | Where it goes in nanoMuse | What is preserved |
+| Exported material | Where it goes in Xiaoman | What is preserved |
 | --- | --- | --- |
 | Short facts and preferences | **Soul & memory → Import memory** | Selected text, one memory per line |
 | Notes and conversation transcripts | **Library → Import Markdown files…** | Text documents, not resumable chat sessions |
@@ -16,7 +16,7 @@ Keep the original export while checking what has moved.
 | Conversation manifests and resources | Keep them with the original archive | No automatic reconstruction of turns, attachments or session IDs |
 
 An export can only transfer what it contains. If tags or connector files are missing,
-nanoMuse cannot recover them from a transcript or a manifest. Check your own export;
+Xiaoman cannot recover them from a transcript or a manifest. Check your own export;
 different export paths may include different material.
 
 ## Import selected memories
@@ -66,7 +66,7 @@ images and other resources with the original export and check the references in 
 documents you convert. Importing a text file does not import its linked resources.
 
 Do not write foreign transcripts into the harness's session files or manufacture relay
-sync records. Those formats belong to nanoMuse's session and sync lifecycle and are not
+sync records. Those formats belong to Xiaoman's session and sync lifecycle and are not
 an external conversation import API.
 
 ## Reconfigure connectors
@@ -79,7 +79,7 @@ documented transport and authentication. See the
 [MCP server configuration](configuration.md#mcp-servers).
 
 Files named `connector.yaml` or `CONNECTOR.md` can help you understand the old setup,
-but nanoMuse has no importer for that connector format. A Python script that calls a
+but Xiaoman has no importer for that connector format. A Python script that calls a
 service's API is not automatically an MCP server. It needs a reviewed adapter that
 implements MCP before an MCP client can discover and call its tools. Copying the file
 or pointing a server command at an ordinary client script does not supply that adapter.
@@ -88,7 +88,7 @@ Enter credentials through the supported connector setup, and keep runtime secret
 the vault. Select the tools and permissions you need, then verify a read-only operation
 before using the connection for changes. Bring over your own preferences as selected
 facts; do not copy another product's system prompt or assume its instructions configure
-nanoMuse's tools and permissions.
+Xiaoman's tools and permissions.
 
 ## Check the result
 

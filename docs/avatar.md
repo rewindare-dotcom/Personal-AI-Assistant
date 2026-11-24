@@ -12,7 +12,7 @@ not change that default. On the phone since
    *Draw four*, and the rest of this list without a card in the chat (the progress comes over
    the socket as `{"kind": "studio", "current"}`). The agent is not run for it.
 2. **Your image provider.** Add an image provider and API key under *Models* first.
-   nanoMuse Cloud no longer pays for image or video generation. The studio keeps the
+   小满 Cloud no longer pays for image or video generation. The studio keeps the
    generated files on your device and uses the provider you selected.
    Four illustrated inspiration cards sit above the description on Android, iPhone, web
    and desktop. Tapping one fills its description and style; it does not replace the face
@@ -76,7 +76,7 @@ use them), `POST /api/avatar/moods` draws the poses and clips of the worn face a
 of finished sessions are cleared after a day; faces stay in the workspace as long as the
 profile, or you, want them.
 
-With a nanoMuse Cloud account the face follows you to every device ([docs/cloud.md](cloud.md)):
+With a 小满 Cloud account the face follows you to every device ([docs/cloud.md](cloud.md)):
 the stills go to the relay once, the other devices wear them from `avatar/sync-<hash>/`
 with the description and style in their `face.json`, and a device keeps the face it drew,
 clips and all, when the account's pictures are the ones it already wears.
@@ -99,7 +99,7 @@ desktop where the system has the decoder, and its preview refuses a clip it cann
 takes H.264 only today). A longer or larger clip, or another format, is refused with a sentence
 that states the limits; nothing is trimmed or re-encoded, and the sound is never played.
 
-The clip stays on the device that chose it. It is not uploaded to nanoMuse Cloud and does not
+The clip stays on the device that chose it. It is not uploaded to 小满 Cloud and does not
 sync to your other devices, unlike the stills of a studio face; each device chooses its own.
 On Android it lives under `minis-global/nanomuse/avatar/own-clip.mp4` with its first frame
 beside it as `own-clip.png`, filed with the signed-in account's other files; on iOS under the
@@ -110,7 +110,7 @@ built-in one.
 On Android that folder is inside the app's own storage, which no file manager or shell can
 open, so the workbench's menu has *Save to gallery*: it copies the base picture, the mood stills,
 the four candidates of the last generation, the animated moods and your own clips to
-`Pictures/nanoMuse/avatar` and `Movies/nanoMuse/avatar`, each batch named by the minute it
+`Pictures/小满/avatar` and `Movies/小满/avatar`, each batch named by the minute it
 was saved, and says how many pictures and clips landed. Nothing goes anywhere but the gallery
 of the same phone; it is the way to keep a face or a clip before clearing the app's data or
-moving to a new phone. ([#664](https://github.com/nano-muse/nanoMuse/issues/664))
+moving to a new phone. ([#664](https://github.com/nano-muse/小满/issues/664))

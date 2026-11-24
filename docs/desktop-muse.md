@@ -1,6 +1,6 @@
 # The desktop window, screen by screen
 
-> What the nanoMuse desktop on DeepSeek Harness looks like and does, page by page: the
+> What the 小满 desktop on DeepSeek Harness looks like and does, page by page: the
 > window, the first run, the profile and the face, computer use, Settings, the rooms and
 > the hamburger menu. Interface only; the plan and the record of the work are in
 > [harness.md](harness.md).
@@ -93,7 +93,7 @@ pressed, the permissions page seen, which source answers. The pages are therefor
 skipped on a fresh install and never shown twice:
 
 1. **Welcome**: the app's mark (the avatar comes with the conversation, on the Meet page),
-   *Welcome to nanoMuse*, the three feature rows (chat, hands, reach), the community notice,
+   *Welcome to 小满*, the three feature rows (chat, hands, reach), the community notice,
    one blue *Sign in* pill and *Use your own API key instead*, which goes to the models page
    with no account (the sign-in can come later; *Skip for now* there with no key saved is
    Welcome again). Sign-in
@@ -116,16 +116,16 @@ skipped on a fresh install and never shown twice:
    cut off before. *More ways* folds out the rest of the catalogue, the servers on this
    computer (Ollama, LM Studio, vLLM) and any OpenAI-compatible endpoint by hand. *Skip for
    now* until a key is saved or a sign-in finished; *Continue* then.
-5. **Allow nanoMuse to use your computer?** (macOS only): *Accessibility* and *Screen
+5. **Allow 小满 to use your computer?** (macOS only): *Accessibility* and *Screen
    Recording* rows, each with *Allow* that asks the system through the desktop shell and
    turns into a green check as the system grants it (polled, and again when the window gets
    focus or the page becomes visible; one hook, `permissions.ts`, behind every place that
    shows a permission); once *Allow* has been pressed the button reads *Open System
-   Settings*. The entry to switch on is **nanoMuse Computer Use**, the small helper that
+   Settings*. The entry to switch on is **小满 Computer Use**, the small helper that
    takes the pictures and moves the mouse for the app ([desktop.md](desktop.md#macos-permissions));
    the rows name it, and the helper restarts by itself once the grant is given, so the app
    does not. A build without the helper (before 0.1.38) is the app itself: the shell makes one
-   capture attempt before it opens the pane, so nanoMuse is on the pane's list, and when the
+   capture attempt before it opens the pane, so 小满 is on the pane's list, and when the
    permission is granted while the app runs a dialog says macOS applies it only to freshly
    started apps, with *Restart now* (`relaunch` over the bridge). *Try it* rows (a test
    screenshot, a mouse move) and the
@@ -135,7 +135,7 @@ skipped on a fresh install and never shown twice:
    On Linux and Windows the page is skipped.
 6. **Meet <name>**: the face, *Start*.
 
-Start binds the **main chat** (the agent's own folder, `~/nanoMuse`, registered as a
+Start binds the **main chat** (the agent's own folder, `~/小满`, registered as a
 workspace so the composer is live) as the **first conversation**, the phone's
 `FirstConversation`: the app speaks first (three scripted lines, no tokens, never in the
 model's history) and asks what to call you. From there the model does the talking and
@@ -231,7 +231,7 @@ headline. For a step of the hands, a strip above the card adds *Always in this c
 first part). The same question, *Allow once*, *Always in this chat*, *Always in <app>*,
 *Deny* (the host's `ApprovalDesk` sits first in
 the `approval/request` waterfall and answers for the card), is on the **capsule**, the
-small always-on-top pill the shell shows when the nanoMuse window is not in front, so
+small always-on-top pill the shell shows when the 小满 window is not in front, so
 you can answer from wherever you are.
 *Always in <app>* writes a `computer_app:<app>` grant: the hands' tools in that app are
 allowed without asking until you revoke the grant, on the agent page or under Settings →
@@ -247,7 +247,7 @@ The grant names the app, not the person or the words: in that chat, the hands ma
 anything to anyone in that app. Settings → **Computer use** shows the two macOS
 permissions with *Allow* and *Open System Settings* (through the desktop shell; the
 first time the hands are about to start, the shell asks for them in order with a word on
-why, the phone's and Codex's way: Accessibility, then Screen Recording for nanoMuse
+why, the phone's and Codex's way: Accessibility, then Screen Recording for 小满
 Desktop, which since 0.1.36 is the binary that captures and clicks; the bundled
 `nanomuse` runtime only needs them when it runs without the shell), *Keep the screen
 awake while it works* (the shell holds a power-save
@@ -267,7 +267,7 @@ Questions keep *Open*. Stop (the square) still cancels the turn.
 **The operator.** The hands themselves are the shell's (`src/operator.ts`, a port of
 UI-TARS-desktop's `NutJSOperator` on `@computer-use/nut-js`): the screenshot through
 Electron's `desktopCapturer` at the display's size (on a Mac, through the helper
-*nanoMuse Computer Use* and ScreenCaptureKit instead; see [desktop.md](desktop.md#macos-permissions)),
+*小满 Computer Use* and ScreenCaptureKit instead; see [desktop.md](desktop.md#macos-permissions)),
 the pointer moved straight to the
 point and left there 100 ms before the click, drags, scrolls, typing through the
 clipboard for anything beyond ASCII, the hotkey table (`ctrl` is ⌘ on a Mac). The
@@ -310,7 +310,7 @@ says which session has the screen in `hands.run`; the glow and the capsule used 
 the calls in flight and went dark between every two), and it goes 400 ms after the turn
 ends, after *Stop*, or after five minutes without a call. The glow cannot take focus or a
 click, and it, the
-capsule and the nanoMuse window itself while the hands have the screen all have
+capsule and the 小满 window itself while the hands have the screen all have
 `setContentProtection(true)`, so none of them is in the screenshots the runtime takes;
 on Linux, where content protection does nothing, the glow and the capsule step out of the
 way for the instant of the capture instead. The phone's long-press ring has no desktop
@@ -323,7 +323,7 @@ in a 36 px ring of three hues (the action blue, violet, cyan) breathing with fou
 bars, **Step N** and what the hands are doing (*looking at the screen*, *clicked "Save"*,
 *typed "hello"*; the last step's words stay while the model thinks about the next),
 **I'll take it** and a red **Stop**. It slides in over 320 ms when the
-hands start, stays for the whole run like the glow, is shown only while the nanoMuse
+hands start, stays for the whole run like the glow, is shown only while the 小满
 window is not the one in front (the chat
 shows the same in the trajectory card), and goes 220 ms after the run ends. When the
 hands are about to click or drag under it, it moves to the bottom of the work area first
@@ -369,7 +369,7 @@ here.
 
 Settings → Skills lists the skills for the selected chat, including disabled skills. You can search their names and descriptions and inspect their source, provider and instruction-file path as plain text. The page does not edit or delete skill files, so tools that share `~/.agents/skills` keep their own configuration.
 
-Choose **This workspace** to change only the workspace displayed on the page, or **All workspaces** to apply a setting throughout nanoMuse. Skills are enabled by default. Global disabling takes precedence: enable the skill under All workspaces before changing its workspace setting. A global enable does not remove an existing workspace disable. Without a selected workspace, only global settings are available; the global list may omit skills supplied by individual chats, even though its settings apply by name throughout nanoMuse. Workspace paths are resolved through symbolic links and use the nearest Git project root, matching filesystem skill discovery; subdirectories of the same project share a setting.
+Choose **This workspace** to change only the workspace displayed on the page, or **All workspaces** to apply a setting throughout 小满. Skills are enabled by default. Global disabling takes precedence: enable the skill under All workspaces before changing its workspace setting. A global enable does not remove an existing workspace disable. Without a selected workspace, only global settings are available; the global list may omit skills supplied by individual chats, even though its settings apply by name throughout 小满. Workspace paths are resolved through symbolic links and use the nearest Git project root, matching filesystem skill discovery; subdirectories of the same project share a setting.
 
 Settings apply to the effective skill name, including same-named copies from different sources. Disabled skills remain visible in this manager, but are excluded from the agent's skill catalog and blocked by its skill loader. These controls affect subsequent skill discovery and loading. They do not delete shared files or revoke tool permissions; use Settings → Permissions for authorization rules. Instructions already loaded into a conversation remain in its history. Workspace controls require a live agent context using the managed skill registry. A chat that has not run, or a custom preset with an unsupported skill service, is shown read-only; opening the chat alone does not establish support. You can still select All workspaces to manage global preferences. Workspace changes are checked against the selected session and its canonical path on the server. If settings cannot be read, the page disables changes and explains the limitation. An incomplete catalog is marked so missing entries are not mistaken for disabled skills.
 
@@ -387,13 +387,13 @@ page it opened, named for the page you came from; a pick in the sidebar starts f
   harness's own row in our card), **Appearance** (the harness's light / dark / system
   switch; the accent follows the face), **App behavior** when the desktop shell is there:
   *Open at login* (a login item; a freedesktop autostart entry on Linux), *Show in the
-  menu bar* / *system tray* (an icon with *Open nanoMuse*, *New chat*, *Quit*), *Quick
+  menu bar* / *system tray* (an icon with *Open 小满*, *New chat*, *Quit*), *Quick
   chat with ⌥ Space* (Ctrl+Alt+Space elsewhere: the window comes up with a fresh chat
   and the composer focused; pressed while it is in front, it steps aside), all kept in
   `desktop.json` under the app's home; **Shortcuts** (*Quick Chat* with its combination:
   *Change* records the next one you press, Esc cancels, *Default* puts the platform's back,
-  and a line says so when another app already holds it; and the keyboard reference); **About** (nanoMuse, built on DeepSeek Harness, the licence, and two version
-  lines that are always there: *nanoMuse Desktop <app> · harness <bundle>: installed*
+  and a line says so when another app already holds it; and the keyboard reference); **About** (小满, built on DeepSeek Harness, the licence, and two version
+  lines that are always there: *小满 Desktop <app> · harness <bundle>: installed*
   and *Latest 0.1.x: you have it* / *0.1.x is out · Update* / *Could not check · tap to
   try again*; the check reads `nanomuse.cn/dl/index.json` first and GitHub's releases
   second, once a day); and *Developer*: *Show DeepSeek
@@ -405,7 +405,7 @@ page it opened, named for the page you came from; a pick in the sidebar starts f
   you: **Chat** (*The model that talks with you.*), **Operating the screen** (*Looks at the
   screen and acts for you. Needs a model that can see images.*), **Making pictures**
   (*Portraits of your Muse and the pictures you ask for.*) and **Making clips** (*Short
-  clips of your Muse.*), a picker on each. A picker lists nanoMuse Cloud first while
+  clips of your Muse.*), a picker on each. A picker lists 小满 Cloud first while
   signed in only when the relay's live menu covers that row, its lane recommendation
   marked *Recommended*, then one group per provider you
   added, each holding only the models that can do the row's job; the value reads
@@ -417,10 +417,10 @@ page it opened, named for the page you came from; a pick in the sidebar starts f
   Bailian, Zhipu GLM, SiliconFlow, …*) and *Add a provider*; the page ends with *Add a
   provider*, which opens the ways on under Account. When you have not chosen, a row
   follows the provider new chats answer through (its catalogue default for the job) when
-  that is one of your own, else nanoMuse Cloud while signed in only when its live menu
+  that is one of your own, else 小满 Cloud while signed in only when its live menu
   offers the job, else the first of your providers that can. The hosted Cloud offers
   chat and screen operation, not media generation.
-- **Account** (under *Advanced*), the nanoMuse account: sign in or the masked
+- **Account** (under *Advanced*), the 小满 account: sign in or the masked
   identifier, the allowance, the look, *Open Devices*, a line that opens Settings → Models
   with what chat and the hands use now, and the block the own keys share with the account:
   - **Ways on**: your account's row first while signed in (what it covers right now, from
@@ -452,9 +452,9 @@ page it opened, named for the page you came from; a pick in the sidebar starts f
   through your own key go to that provider directly (Model Studio's native image API,
   OpenRouter's image API, the OpenAI shape for OpenAI, Zhipu, SiliconFlow, Volcengine and
   xAI), and the studio says *Drawn with <provider> · <model>. Nothing is billed to your
-  nanoMuse Cloud account.* in place of the estimate; a Google key draws only through the
+  小满 Cloud account.* in place of the estimate; a Google key draws only through the
   OpenAI-compatible layer. When nothing configured covers pictures or clips the row says who could,
-  where you are, with the way to provider setup under Settings → nanoMuse Cloud (the same sentence
+  where you are, with the way to provider setup under Settings → 小满 Cloud (the same sentence
   the avatar studio shows in place of the estimate), and with only the ChatGPT sign-in, that pictures and
   clips are not covered by it.
   Below: *Animate the avatar after a change*, *Make / Redo clips* with the state of each
@@ -523,10 +523,10 @@ page it opened, named for the page you came from; a pick in the sidebar starts f
   *key* or *address* rows.
 - **Computer use**: the system permissions (macOS), keep awake, the risk note.
 - **File system access**: the folders the agent uses (home, the Library, Downloads,
-  nanoMuse's own files; each opens in the file manager, the page grants nothing), the
+  小满's own files; each opens in the file manager, the page grants nothing), the
   rules (reading anything you name; writing under the chat's permission preset, which is
   *workspace-write* unless the Agents page says otherwise: the chat's folder freely, the
-  main chat's being `~/nanoMuse`, and outside it a change is refused unless the agent asks
+  main chat's being `~/小满`, and outside it a change is refused unless the agent asks
   you for it and you allow it once; *read-only* asks before every change, *full access*
   asks nothing; the sandbox), and *Full Disk Access* on macOS, which is only about reading
   Desktop, Documents and Downloads. The home folder, Downloads and the app's own files are
@@ -557,7 +557,7 @@ page it opened, named for the page you came from; a pick in the sidebar starts f
   other devices' side chats come here*; see [every-device.md](every-device.md)), the
   account's record (what the relay keeps of the account's turns in full, those on your own
   keys and the pictures among them, how long this relay keeps a turn; relay 0.29, see
-  [cloud.md](cloud.md#the-record)), *Help improve nanoMuse's AI models* (the relay's switch,
+  [cloud.md](cloud.md#the-record)), *Help improve 小满's AI models* (the relay's switch,
   with how many turns joined the training set) and one *Delete* that removes the record and
   the training turns together, as on every other app. From 1.0.7 this computer takes part in
   the record itself: its chat requests to the account carry `X-NanoMuse-Device` and
@@ -578,7 +578,7 @@ page it opened, named for the page you came from; a pick in the sidebar starts f
   back to the welcome sheet, the way a fresh install starts.
 
 Wallet, secure storage and message channels are not there: the Cloud has no wallet;
-members have an allowance ([cloud.md](cloud.md#allowance)). nanoMuse keeps no
+members have an allowance ([cloud.md](cloud.md#allowance)). 小满 keeps no
 passwords for the agent, and messages reach you through the phone app's notifications
 rather than a messenger.
 
@@ -627,7 +627,7 @@ serves `/nanomuse/rooms/*` and streams changes to the browser half:
   menu still creates a goal from your own words; *Check in* runs a check now.
 - **Library**: shelves (All, Documents, Web; Media: Images, Videos, Podcasts; System
   files at the foot), *Select*, *+ Create…* (a brief → a chat that writes the file under
-  `~/nanoMuse/Library`, `构件` in Chinese, with the workspace-write preset), *Recent*
+  `~/小满/Library`, `构件` in Chinese, with the workspace-write preset), *Recent*
   and a card grid; a viewer and a Markdown editor for text (restoring IDENTITY.md or SOUL.md
   to the stock text asks first), pictures and media inline, *Open* / *Show in folder* for the rest. Everything the agent delivers with `present`
   lands here, and `library_add` lists a file without delivering it. Documents of your own
@@ -659,7 +659,7 @@ uniqueness when separate requests create tasks concurrently.
 
 Settings (with its shortcut; a dot on it and on the ••• button
 when a newer release is out), **Update to 0.1.x** when there is one (opens the release
-page), **About nanoMuse** (the version line *nanoMuse Desktop <app> · harness <bundle>*,
+page), **About 小满** (the version line *小满 Desktop <app> · harness <bundle>*,
 the licence, GitHub / Releases / Docs / Issues), Keyboard shortcuts, Schedules and
 the harness's other panels (Plugins and whatever else is installed), collapse / expand
 the chats column, *Report a problem*: under the desktop shell a screenshot of the
@@ -682,7 +682,7 @@ nowhere else.
   sighted only when its id says `v4.1`, `vision` or `ocr`. The hands model is written to
   `$DSH_HOME/nanomuse/hands.json` (mode 0600) and handed to `nanomuse mcp` as its
   environment by the plugin's own MCP client, which it restarts when the model changes.
-  When a model of your own fails under a turn, the card offers *Use nanoMuse Cloud this
+  When a model of your own fails under a turn, the card offers *Use 小满 Cloud this
   time* (signed in): that one message again through the account, the chat back to its
   model when the turn ends, the Models page as it was. Nothing falls back on its own.
 - **Connectors on every device.** What you connected here (service, label, URL for a

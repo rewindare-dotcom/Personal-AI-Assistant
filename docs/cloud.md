@@ -1,4 +1,4 @@
-# nanoMuse Cloud
+# 小满 Cloud
 
 The admin console distinguishes an invalid token from a service failure. Only a 401 rejects the token; network and server errors keep the entered token for retry, and a late rejection from an older request cannot lock a newer sign-in.
 
@@ -10,7 +10,7 @@ The admin console counts each demo visit once in its daily chart, including visi
 The admin console classifies legacy Python runtime sessions with an `AsyncOpenAI/Python` user agent as runtime sessions, matching the relay.
 
 The "start now" path: sign up with a phone number (mainland China; the code comes by SMS)
-or an e-mail address, get a free allowance, and use nanoMuse without an API key of your own.
+or an e-mail address, get a free allowance, and use 小满 without an API key of your own.
 Bringing your own key still works exactly as before: this is one more
 provider, not a replacement.
 
@@ -31,10 +31,10 @@ Signing out brings that screen back
 runtime). The screen is a door, not a wall: *Use your own API key instead* steps
 past it into setup's own-key path, and with a key of your own the app works
 signed out (chat, hands, pictures, clips); the sign-in waits under
-*Connections* (phones: *Settings → nanoMuse Cloud*) for the Cloud models, sync
+*Connections* (phones: *Settings → 小满 Cloud*) for the Cloud models, sync
 and your devices. After the code the app has:
 
-- a provider called **nanoMuse Cloud** under *Settings → Providers*, an
+- a provider called **小满 Cloud** under *Settings → Providers*, an
   ordinary OpenAI-compatible provider whose key is the token the relay issued;
 - the chat and hands rows of *Settings → Models* (web console: *Connections*) on
   the account's `Qwen/Qwen3.6-27B-FP8` when you had chosen none. It reads image
@@ -42,12 +42,12 @@ and your devices. After the code the app has:
   The account does not provide image or video generation; those two rows require
   a custom provider and API key on the device. A row you have not set follows one
   order: the chat model's provider when it is a key of yours that can do the
-  job, else nanoMuse Cloud while signed in, else the first key of yours that
+  job, else 小满 Cloud while signed in, else the first key of yours that
   can; the *Automatic* entry of the row says what that gives right now, and a
   key you add later asks *Use it for* before any row moves
   ([own-key.md](own-key.md#which-model-does-what)).
 
-*Settings → nanoMuse Cloud* (the *Account* screen) shows who is signed in (a
+*Settings → 小满 Cloud* (the *Account* screen) shows who is signed in (a
 masked hint, never the number) and since when; sets, changes or removes the
 **password** (the relay sets the minimum, eight characters by default; scrypt on the relay; locked for a while
 after repeated wrong attempts, and a fresh code sign-in opens it again); today's
@@ -204,7 +204,7 @@ and that the same address signing up again is a new, empty account. See
 
 ## Data controls
 
-*Settings → Data controls → Help improve nanoMuse's AI models* is a switch each
+*Settings → Data controls → Help improve 小满's AI models* is a switch each
 person owns, the same on the phone, the web app, the desktop and the console.
 Off, the relay forwards a chat request and keeps nothing of it. On, each turn
 is kept as a training view: what you wrote, what the model answered and the
@@ -522,7 +522,7 @@ travel, switch or no switch: a chat the desktop runs for another device's task
 for themselves, the feed's daily batch among them (*Feed · <date>*, archived
 when it is done) — those are the agent's workbench, not conversations of the
 person's, and through 1.0.9 the batches did reach the phones as side chats
-once a day ([#713](https://github.com/nano-muse/nanoMuse/issues/713)). The first pull of a fresh
+once a day ([#713](https://github.com/nano-muse/小满/issues/713)). The first pull of a fresh
 sign-in asks for the **tail**, the newest 300 messages with the conversations
 they belong to, so a long history opens at once instead of paging from the
 start; the older messages it skipped stay on the relay and are not pulled. While a
@@ -622,7 +622,7 @@ The admin console's Usage dates, day picker and People sign-up chart follow the
 relay's `DAY_OFFSET_H` calendar. Viewing them from a different browser timezone
 does not shift a day's label or move its sign-ups into an adjacent day.
 
-nanoMuse is a community project and charges nothing. The public relay at
+小满 is a community project and charges nothing. The public relay at
 `cloud.nanomuse.cn` is paid for by the developer, so each account has a pool
 to draw on, for its lifetime, not by the day (relay 0.5):
 
@@ -643,7 +643,7 @@ that chat request; it is not image generation. Hosted picture and clip
 generation is not charged because it is not available: add a provider and API
 key of your own for those capabilities.
 
-*Settings → nanoMuse Cloud* shows what was used of the pool in ¥ and $, what
+*Settings → 小满 Cloud* shows what was used of the pool in ¥ and $, what
 is left, and how the pool grows. At 80 % the app says so once; when the pool
 is spent the relay refuses with `allowance_exhausted` and the app shows the
 ways on: your own key, a plan you already pay for, or an invitation (+¥5 for
@@ -706,8 +706,8 @@ out, and the route says nothing about whether the number has an account or wheth
 it is off; the person is told `403 account_disabled` when they sign in with a code,
 or with the right password (a wrong one is answered like any wrong password).
 
-nanoMuse asks for one thing in return: a star on
-[GitHub](https://github.com/nano-muse/nanoMuse), which is what helps the
+小满 asks for one thing in return: a star on
+[GitHub](https://github.com/nano-muse/小满), which is what helps the
 project be found. The moments are the relay's to set, not the app's (0.1.35):
 `GET /v1/nudges` says when an ask is fair: after the third, tenth and
 thirtieth task it finishes for you, on the seventh and thirtieth day you open
@@ -754,10 +754,10 @@ before it tries. The apps handle the codes as any refusal: the phones and the
 console show the relay's sentence; the `allowance_exhausted` shape is the one
 they already draw a card for.
 
-The sixth switch, **nanoMuse clients only** (relay 0.28, on by default), works
-the other way round: while it is on, the models answer the nanoMuse apps, the
+The sixth switch, **小满 clients only** (relay 0.28, on by default), works
+the other way round: while it is on, the models answer the 小满 apps, the
 desktop app, the Python runtime and the web console in a browser, and any
-other software calling `/v1/chat/completions` with a nanoMuse key (a pool
+other software calling `/v1/chat/completions` with a 小满 key (a pool
 worker, an SDK, a script, the unbranded upstream app) gets **403
 `client_not_supported`** with the client's name under `client` and a sentence
 saying to use a key of its own there. The relay reads the `User-Agent` for

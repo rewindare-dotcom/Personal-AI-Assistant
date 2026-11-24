@@ -70,8 +70,8 @@ resumable turns out unknown to the CLI.
 
 dsh is [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness): the
 chats of `dsh web` and of DeepSeek's own desktop app, kept under `~/.dsh`. The
-runtime and the nanoMuse desktop app both read and drive them; the runtime reads
-the store with `zstandard`, one of its dependencies. nanoMuse's own desktop chats
+runtime and the Xiaoman desktop app both read and drive them; the runtime reads
+the store with `zstandard`, one of its dependencies. Xiaoman's own desktop chats
 are kept in its own home and are not among them.
 
 dsh's store needs two things said: it is **zstd**, and it is **many zstd frames**
@@ -129,7 +129,7 @@ with *Remote control* off, a device that is not yet trusted raises a card on the
 screen, and the answer (once, always, no, or none in time) decides; the
 read-only actions are answered without asking.
 
-The agents' own API keys and sign-ins are theirs; nanoMuse never sees them. The
+The agents' own API keys and sign-ins are theirs; Xiaoman never sees them. The
 transcripts are read from disk and shown to you; they are not sent anywhere but
 to the device that asked.
 
@@ -209,7 +209,7 @@ first page; pages from changed content are never combined.
 
 The iOS coding screen separates **Projects** and **Chats**, groups project sessions
 by folder, and starts a new conversation with an installed agent in that folder.
-It uses nanoMuse's existing colours and Markdown renderer. Tool rows expand into
+It uses Xiaoman's existing colours and Markdown renderer. Tool rows expand into
 recorded output and file counts; **Execution details** opens the inputs and paged
 output; selecting a file opens its recorded patch directly. Missing patches or counts stay
 unavailable, rather than being reconstructed from today's workspace.
@@ -261,10 +261,10 @@ loads 100 sessions at a time and supports search and further pages. Chats reques
 `tail: true` for the latest 100 items, then prepend earlier pages in chronological order.
 
 `scope: chats` on a new send creates a separate directory under
-`~/Documents/nanoMuse/Chats/`; known Codex rootless directories are also classified
+`~/Documents/Xiaoman/Chats/`; known Codex rootless directories are also classified
 as Chats. Other workspaces are Projects. Sending and stopping still use the
 existing remote-control/Sentinel gate. Read-only item/diff requests only resolve
-references in the specified session or an associated nanoMuse-owned run, never
+references in the specified session or an associated Xiaoman-owned run, never
 an arbitrary path. Validation does not bypass the send gate.
 
 `request_id` deduplicates an identical send, including concurrent requests.
@@ -287,7 +287,7 @@ before sending. Agent terminal failures end the run even if a helper retains its
 output pipe or the process exits with code zero.
 
 The compatibility adapters browse Codex, Claude Code, Cursor and dsh records,
-and control CLI runs started by nanoMuse. **External-run control and native
+and control CLI runs started by Xiaoman. **External-run control and native
 agent approvals are not implemented by these adapters**:
 `control_external_run`, `approve`, and arbitrary `file` capabilities are false.
 The separate Codex app-server control adapter is not part of this stage.

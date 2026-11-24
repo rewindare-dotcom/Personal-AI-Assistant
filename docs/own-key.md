@@ -1,10 +1,10 @@
 # Bring your own key
 
 
-nanoMuse is free and non-profit. The model behind it costs money, and the
+Xiaoman is free and non-profit. The model behind it costs money, and the
 developer pays for a starting allowance per account (the app shows the relay's
 current figures). When it is gone, there are two ways on that need nothing
-from nanoMuse: a key of your own at a model provider, or a plan you already
+from Xiaoman: a key of your own at a model provider, or a plan you already
 pay for (ChatGPT, Claude, Kimi) signed in from the app.
 
 Every client reads the same list of providers, with what each one covers:
@@ -14,7 +14,7 @@ configured provider covers is simply not offered, with one sentence saying
 which providers would; nothing breaks.
 
 Your sign-in, your invite code and your devices are not affected: the account
-stays, only the model provider changes. Nothing you say passes through nanoMuse
+stays, only the model provider changes. Nothing you say passes through Xiaoman
 Cloud once your own key or plan is in use.
 
 ## Where you are decides who comes first
@@ -73,7 +73,7 @@ short videos.
 | Synap | ● | | | | outside mainland China | [synap402.com](https://synap402.com/account.html#keys) |
 | Ollama / LM Studio / vLLM (on your machine) | ● | | | | both | no key |
 
-Only Bailian has a dot under *Clips* because nanoMuse's clip generation speaks
+Only Bailian has a dot under *Clips* because Xiaoman's clip generation speaks
 Bailian's video API; the other vendors' video models sit behind their own task
 APIs, not wired this round. Under *Pictures*, OpenRouter goes through its
 Image API with models such as `openai/gpt-image-2`; Gemini uses
@@ -87,7 +87,7 @@ there, checked against each vendor's documentation in October 2026.
 ## Making a key
 
 The same three steps everywhere: sign up → create an API key in the console →
-paste it into nanoMuse. **The key is for nanoMuse only; never send it to anyone
+paste it into Xiaoman. **The key is for Xiaoman only; never send it to anyone
 or paste it into a chat.**
 
 - **Alibaba Cloud Bailian.** Sign in to [bailian.console.aliyun.com](https://bailian.console.aliyun.com/) with an Alibaba Cloud account (identity verification is required), accept *Enable Model Studio* on first entry, then create a key on the [API-KEY page](https://bailian.console.aliyun.com/?apiKey=1); it starts with `sk-`. A new account comes with free tokens for a while. Set a usage alert in the console.
@@ -99,14 +99,14 @@ or paste it into a chat.**
 - **MiniMax.** Mainland edition at [platform.minimaxi.com](https://platform.minimaxi.com/user-center/basic-information/interface-key), base URL `https://api.minimaxi.com/v1`; the global base URL is `https://api.minimax.io/v1`.
 - **OpenRouter.** Sign in at [openrouter.ai](https://openrouter.ai/) with Google, GitHub or an e-mail address, add credit under *Credits*, create a key under *Keys*; it starts with `sk-or-v1-`. *Settings → Limits* puts a monthly cap on a key.
 - **OpenAI.** [platform.openai.com](https://platform.openai.com/api-keys), base URL `https://api.openai.com/v1`.
-- **Anthropic.** [platform.claude.com](https://platform.claude.com/settings/keys). nanoMuse speaks Anthropic's own API; no compatibility layer is needed.
+- **Anthropic.** [platform.claude.com](https://platform.claude.com/settings/keys). Xiaoman speaks Anthropic's own API; no compatibility layer is needed.
 - **Google Gemini.** [aistudio.google.com/apikey](https://aistudio.google.com/apikey), base URL `https://generativelanguage.googleapis.com/v1beta/openai`.
 - **xAI, Groq, Mistral.** A key from each console; base URLs `https://api.x.ai/v1`, `https://api.groq.com/openai/v1`, `https://api.mistral.ai/v1`.
 - **OpenCode Zen.** A key from [opencode.ai/auth](https://opencode.ai/auth); pay per request from a balance, a few models are free. Base URL `https://opencode.ai/zen/v1`. Only the models on the OpenAI shape are reached, so chat and no hands: the vision model OpenCode lists, `deepseek-v4-flash-vision-exp`, is an id DeepSeek has retired on its own platform. OpenCode publishes no plan sign-in, only a key, so there is nothing to sign in with here.
-- **OpenCode Go.** The subscription on the same host: Go ($10 a month) or Go Plus ($40) in the OpenCode console, then a key from [opencode.ai/auth](https://opencode.ai/auth). Base URL `https://opencode.ai/zen/go/v1`. Usage is counted per model against monthly, weekly and five hour limits. OpenCode means Go for coding agents and asks a client to name itself and to send one stable id per conversation in `x-opencode-session` ([its Go page](https://opencode.ai/go), under *Can I use Go with other coding agents?*). The runtime (and so the web console) sends `nanoMuse/<version>` as its user agent and the conversation's id in that header on every Go request; a call outside a conversation, such as the connection test, carries an id of its own. The desktop writes Go as its model adapter's own OpenCode Go route, which sends the same header and reaches each model on its own shape: the desktop offers the models that route's catalog lists, those on the Responses and Messages shapes included; elsewhere only the OpenAI shape is reached. The phone apps send it too, on chat and Responses requests to OpenCode's host: the id is the chat's prompt cache key, a hash of its first message that stays the same across its turns (two chats that open with the very same words share one). Chat only, for the same reason as Zen.
+- **OpenCode Go.** The subscription on the same host: Go ($10 a month) or Go Plus ($40) in the OpenCode console, then a key from [opencode.ai/auth](https://opencode.ai/auth). Base URL `https://opencode.ai/zen/go/v1`. Usage is counted per model against monthly, weekly and five hour limits. OpenCode means Go for coding agents and asks a client to name itself and to send one stable id per conversation in `x-opencode-session` ([its Go page](https://opencode.ai/go), under *Can I use Go with other coding agents?*). The runtime (and so the web console) sends `Xiaoman/<version>` as its user agent and the conversation's id in that header on every Go request; a call outside a conversation, such as the connection test, carries an id of its own. The desktop writes Go as its model adapter's own OpenCode Go route, which sends the same header and reaches each model on its own shape: the desktop offers the models that route's catalog lists, those on the Responses and Messages shapes included; elsewhere only the OpenAI shape is reached. The phone apps send it too, on chat and Responses requests to OpenCode's host: the id is the chat's prompt cache key, a hash of its first message that stays the same across its turns (two chats that open with the very same words share one). Chat only, for the same reason as Zen.
 - **Standard Compute.** A key from [standardcompute.com/dashboard/api-keys](https://standardcompute.com/dashboard/api-keys); a fixed monthly plan from $19 with a monthly compute budget, and once it is used, requests stop with 402 (no overage charges). Base URL `https://api.stdcmpt.com/v1`. The default model, `standardcompute`, is a router that picks a model for each request from the ones enabled on the account's Models page; any id from `https://api.stdcmpt.com/v1/models` can be set instead. Chat only: the router's entry in that list declares no picture input, so the hands are not claimed.
 - **Cheaper Inference.** A key from [cheaperinference.com/signup](https://cheaperinference.com/signup); one key reaches models from several labs. Base URL `https://api.cheaperinference.com/v1`. The default model is `gpt-5.4-mini`; any id from `https://api.cheaperinference.com/v1/models` can be set instead. Chat only here, on the OpenAI shape.
-- **API Route.** Sign in and open [API keys](https://www.api-route.com/api-keys), then add balance. Base URL `https://global.api-route.com/v1`; the default model is `gpt-6.1-sol`, verified in `/v1/models` and with a chat request. Other model ids must come from the list available to your key. Usage is deducted from your prepaid API Route balance at the selected model's [current rates](https://www.api-route.com/pricing), separately from nanoMuse Cloud. Chat only here; picture input, image generation and video have not been verified. See the [provider documentation](https://www.api-route.com/docs/overview).
+- **API Route.** Sign in and open [API keys](https://www.api-route.com/api-keys), then add balance. Base URL `https://global.api-route.com/v1`; the default model is `gpt-6.1-sol`, verified in `/v1/models` and with a chat request. Other model ids must come from the list available to your key. Usage is deducted from your prepaid API Route balance at the selected model's [current rates](https://www.api-route.com/pricing), separately from Xiaoman Cloud. Chat only here; picture input, image generation and video have not been verified. See the [provider documentation](https://www.api-route.com/docs/overview).
 - **Opper.** A key from *API Keys* at [platform.opper.ai](https://platform.opper.ai); one key reaches 700+ models from 50+ providers at the providers' rates, with no markup, and the gateway is hosted in the EU. Base URL `https://api.opper.ai/v3/compat`. The default model is `claude-sonnet-4-6`; any id from `https://api.opper.ai/v3/compat/models` can be set instead, and a `provider/model` id such as `anthropic/claude-sonnet-4-6` pins one route. Chat only here, on the OpenAI shape.
 - **AtmoRouter.** A key from [atmorouter.dev/dashboard/keys](https://atmorouter.dev/dashboard/keys); pay as you go, and one key reaches models from several labs. Base URL `https://atmorouter.dev/v1`. Model ids carry a route prefix, as `https://atmorouter.dev/v1/models` lists them; the default model is `cc/claude-sonnet-4-6`, and any id from that list can be set instead. Chat only here, on the OpenAI shape.
 - **UberLLM.** A key from [uberllm.dev/signup](https://uberllm.dev/signup); prepaid and pay as you go from $5, no monthly fee, and one key reaches models from several labs, usually below list price ([current prices](https://uberllm.dev/models)). Base URL `https://api.uberllm.dev/v1`. Model ids carry the vendor's name, as `https://api.uberllm.dev/v1/models` lists them; the default model is `openai/gpt-5.4-mini`, and any id from that list can be set instead. Chat only here, on the OpenAI shape.
@@ -114,10 +114,10 @@ or paste it into a chat.**
 
 - **Synap.** A key from [synap402.com/account.html#keys](https://synap402.com/account.html#keys); pay as you go, for open-weight models (Qwen3 Coder, Qwen3.5, GLM, DeepSeek V4, gpt-oss, Gemma and others), with per-token prices in the public `https://synap402.com/v1/models` list ([current prices](https://synap402.com/pricing.html)). Base URL `https://synap402.com/v1`. The default model is `qwen3-coder-30b`; any id from that list can be set instead. Chat only here, on the OpenAI shape.
 
-**Paste it into nanoMuse.**
+**Paste it into Xiaoman.**
 
 - Phone: *Set it up* on the allowance card opens the provider form pre-filled; or *Settings → Providers → Add*, pick the provider, paste the key, save.
-- Desktop: *Set it up* on the allowance card opens *Settings → nanoMuse Cloud* at the provider's row; or paste the key on that provider's row under *Ways on* there. The address is already filled in.
+- Desktop: *Set it up* on the allowance card opens *Settings → Xiaoman Cloud* at the provider's row; or paste the key on that provider's row under *Ways on* there. The address is already filled in.
 - Web console: *Set it up* on the allowance card opens *Connections* with the provider chosen; or *Connections → Chat model*, click the provider, paste the key, save.
 - A runtime of your own: `[llm] provider = "bailian"` (any id from the table) and `api_key` in `config.toml`; the address and the default model fill in from the catalogue. Pictures or clips from another provider are an `[image]` / `[video]` block ([configuration.md](configuration.md#image-and-video)).
 
@@ -138,13 +138,13 @@ model*, *Hands model*, *Making pictures* and *Making clips* cards on
 
 | Row | What it does | Who is listed |
 |---|---|---|
-| Chat | The model that talks with you. | nanoMuse Cloud's chat models while signed in and switched on, then every provider of yours with chat models |
-| Operating the screen | Looks at the screen and acts for you. Needs a model that can see images. | nanoMuse Cloud's hands model, then your providers' models that see images; disabled on the iPhone (*Not on iPhone*) |
+| Chat | The model that talks with you. | Xiaoman Cloud's chat models while signed in and switched on, then every provider of yours with chat models |
+| Operating the screen | Looks at the screen and acts for you. Needs a model that can see images. | Xiaoman Cloud's hands model, then your providers' models that see images; disabled on the iPhone (*Not on iPhone*) |
 | Making pictures | Portraits of your Muse and the pictures you ask for. | Your providers with image models |
 | Making clips | Short clips of your Muse. | Your providers with video models (Bailian) |
 
 Each row shows `provider · model` and opens a picker. Chat and screen operation
-show the *nanoMuse Cloud* group first while signed in, with the relay's
+show the *Xiaoman Cloud* group first while signed in, with the relay's
 lane-specific recommendation marked; media rows show only providers of yours
 because the hosted Cloud does not generate pictures or clips. A self-hosted
 relay appears in a media row only when its operator explicitly enabled and
@@ -160,7 +160,7 @@ that has not been written to yet takes the pick as well: the main chat right
 after a sign-in (the account starts with an empty one), or a new chat you
 opened and left. So what the Chat row names is what answers the next message
 you send, in the main chat and in a new one, whichever source you came from:
-a plan you signed in with (ChatGPT, Claude, Kimi), a key of yours or nanoMuse
+a plan you signed in with (ChatGPT, Claude, Kimi), a key of yours or Xiaoman
 Cloud; a sign-in never steps in front of a pick. The same
 on the phones and the desktop. A group of yours picked in a chat's own picker
 (a row of the `•••` menu, or a model under it) becomes the default as it is,
@@ -173,18 +173,18 @@ chat takes that level along when it follows the pick, as a new chat and the
 chat's own picker do.
 
 **Automatic.** The screen, pictures and clips rows open with an *Automatic*
-entry that says what it gives right now (*Currently nanoMuse Cloud ·
+entry that says what it gives right now (*Currently Xiaoman Cloud ·
 Qwen/Qwen3.6-27B-FP8*, say, for screen operation). Pick it and the row forgets any choice made there and
 follows one order: the chat model's provider when it is one of yours and can do
 the job (its catalogue default), else a signed-in relay while switched on only
 when its live menu offers that job, else the first provider of yours that can.
 The hosted Cloud menu offers chat and screen operation, not media generation.
-A choice you made always wins; nanoMuse Cloud
+A choice you made always wins; Xiaoman Cloud
 never steps in front of a provider you chose. Each device keeps its own choice,
 because keys never leave the device where they were entered.
 
 **The Cloud retry button needs your action.** After a failed turn, the error card
-offers *Use nanoMuse Cloud this time* while signed in. Clicking it runs that one
+offers *Use Xiaoman Cloud this time* while signed in. Clicking it runs that one
 turn on the account's model and changes no row. This button does not govern model
 group routing: a Cloud model included in a phone's group can still be selected
 automatically by that group. A failed picture or clip has no Cloud retry: fix or
@@ -229,19 +229,19 @@ documents a level for shows no control, as do Bailian (its switch is
 `enable_thinking`, which cannot be left unsent), LM Studio and a custom
 endpoint. A key saved before this build gets the control at the next start.
 
-**Switching nanoMuse Cloud off.** While signed in, the Models page has one
-switch, *Use nanoMuse Cloud models*. Off, the Cloud leaves the pickers and the
+**Switching Xiaoman Cloud off.** While signed in, the Models page has one
+switch, *Use Xiaoman Cloud models*. Off, the Cloud leaves the pickers and the
 automatic order, no side call (a chat's title, memory or the hands)
-runs on it, and the only thing that spends your allowance is the *Use nanoMuse
+runs on it, and the only thing that spends your allowance is the *Use Xiaoman
 Cloud this time* button, each time you tap it. You stay signed in: sync, your
 devices and the account page keep working. The Cloud provider cannot be deleted
 the way one of yours can (deleting it was the same as signing out); signing out
-is under *Settings › nanoMuse Cloud*.
+is under *Settings › Xiaoman Cloud*.
 
 **Without an account.** With a key of your own the app works signed out: chat,
 the hands, pictures and clips run on your providers, and the first screen
 offers *Use your own API key instead* next to the sign-in. The sign-in is
-needed only for nanoMuse Cloud's models, conversation sync and your devices
+needed only for Xiaoman Cloud's models, conversation sync and your devices
 reaching each other.
 
 **Known limits.** On the iPhone the pictures and clips rows list only your
@@ -269,7 +269,7 @@ Some plans sign in directly, with no key to make:
 
 The ChatGPT sign-in uses the authorisation flow of OpenAI's own Codex (web
 console: *Connections → Or sign in with a ChatGPT plan*; desktop: the ChatGPT
-row under *Settings → nanoMuse Cloud*; phone: *Settings → Providers → OpenAI →
+row under *Settings → Xiaoman Cloud*; phone: *Settings → Providers → OpenAI →
 Sign in*). Signed in, it covers chat and the hands only: the Codex backend has
 no image or video endpoints, so pictures and clips still want a key.
 
@@ -320,22 +320,22 @@ the same card with that provider's host in it.
 **Settings → Network → HTTP proxy for own providers** (Android and iPhone):
 host, port, an optional user name and password; off by default, kept on this
 phone only. Only the requests to the providers you added with your own key and
-to the ChatGPT plan go through it; nanoMuse Cloud, your computers and the local
+to the ChatGPT plan go through it; Xiaoman Cloud, your computers and the local
 network never do. A *Test* row fetches `https://chatgpt.com/` through the proxy
 as entered and says whether it got through and in how many milliseconds. The
 same setting lives where each app keeps its keys: the phones have it in the
-provider form; the desktop under **Settings → nanoMuse Cloud → Network**, one
+provider form; the desktop under **Settings → Xiaoman Cloud → Network**, one
 address (`http://host:port` or `socks5://host:port`) that the app applies to its
 host process at the next start (*Restart now* is under the row), so every own
 key, the ChatGPT sign-in, the hands' runtime and whatever else the app sends out go
-through it, and nanoMuse Cloud never does ([desktop.md](desktop.md)); the web app has the *Proxy* field in the
+through it, and Xiaoman Cloud never does ([desktop.md](desktop.md)); the web app has the *Proxy* field in the
 own-key form; the runtime has `[llm] proxy` in `config.toml`
 ([configuration.md](configuration.md#llm)).
 
 ## Local models
 
 Ollama, LM Studio and vLLM on your own computer work too: pick the preset
-(web console: *Connections*; desktop: *Settings → nanoMuse Cloud*; phone:
+(web console: *Connections*; desktop: *Settings → Xiaoman Cloud*; phone:
 *Settings → Providers*); the address defaults to the local port
 (`http://127.0.0.1:11434/v1`, `:1234`, `:8000`) and no key is needed. They
 count as *chat*; the hands need a model that sees, so run a multimodal one
@@ -354,7 +354,7 @@ Anything that speaks the OpenAI API works; choose *Custom*:
 | API key | the key made in the provider's console (a local server may leave it empty) |
 | Model | pick from the list after saving; if the endpoint does not list its models, the form asks for their ids (comma-separated) and saves with those |
 
-What a custom endpoint covers is yours to say: nanoMuse takes it for chat, and
+What a custom endpoint covers is yours to say: Xiaoman takes it for chat, and
 the hands, picture and clip models count once their ids are filled in.
 
 **Several at once.** On the desktop app and in the web console the custom

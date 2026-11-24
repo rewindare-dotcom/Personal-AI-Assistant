@@ -9,7 +9,7 @@ This page explains terms used in the documentation. Interface labels follow the 
 | Agent<br>智能体 | An AI program that uses tools to carry out tasks as well as reply. |
 | Runtime<br>运行时 | The program that runs the agent loop, tools and scheduled work. |
 | Host / harness<br>宿主 / 执行框架 | The application or framework that loads the agent and provides its execution environment. |
-| Relay / nanoMuse Cloud<br>中继 / nanoMuse Cloud | The service for account sign-in, model forwarding and communication between the account's devices. |
+| Relay / 小满 Cloud<br>中继 / 小满 Cloud | The service for account sign-in, model forwarding and communication between the account's devices. |
 | Hub<br>hub（设备互联） | The relay's connection through which devices of one account exchange requests and events. |
 | Remote control<br>远程控制 | Allowing another device of the account to request actions on this device. |
 | Hands<br>「手」 | The agent's ability to read a screen and click, type or swipe. |
