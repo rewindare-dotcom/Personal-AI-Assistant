@@ -1,0 +1,79 @@
+name: Brand Xiaoman
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  brand:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply brand strings
+        run: |
+          set -euo pipefail
+          cd "$GITHUB_WORKSPACE"
+          cat > /tmp/brand.b64 <<'B64'
+          IyEvdXNyL2Jpbi9lbnYgcHl0aG9uMwoiIiJSZW5hbWUgdGhlIHBhcnRzIG9mIHRoZSBwcm9kdWN0IGEgcGVyc29uIGFjdHVhbGx5IHNlZXM6IG5hbm9NdXNl
+          IC0+IFhpYW9tYW4gLyDlsI/mu6EuCgpUb3VjaGVzIG9ubHkgZGlzcGxheSB0ZXh0LiBOZXZlciBpZGVudGlmaWVycywgcGFja2FnZSBuYW1lcywgcGF0aHMs
+          IHByb3RvY29sCm5hbWVzIG9yIHRoZSBgbmFtZT1gIGF0dHJpYnV0ZXMgb2YgQW5kcm9pZCBzdHJpbmcgcmVzb3VyY2VzLCBzbyB0aGUgYnVpbGQgc3RheXMK
+          c2VtYW50aWNhbGx5IGlkZW50aWNhbDsgQ0kgY29tcGlsaW5nIGdyZWVuIGlzIHRoZSBwcm9vZiBpdCBkaWQgbm90IGJyZWFrLgoKICAgIHB5dGhvbjMgc2Ny
+          aXB0cy9icmFuZF94aWFvbWFuLnB5CiIiIgpmcm9tIF9fZnV0dXJlX18gaW1wb3J0IGFubm90YXRpb25zCgppbXBvcnQganNvbgppbXBvcnQgcmUKZnJvbSBw
+          YXRobGliIGltcG9ydCBQYXRoCgpST09UID0gUGF0aChfX2ZpbGVfXykucmVzb2x2ZSgpLnBhcmVudHNbMV0KRU4gPSAiWGlhb21hbiIKWkggPSAi5bCP5ruh
+          IgpPTEQgPSAibmFub011c2UiCgpjaGFuZ2VkOiBsaXN0W3N0cl0gPSBbXQoKCmRlZiBzd2FwKHRleHQ6IHN0ciwgemg6IGJvb2wpIC0+IHN0cjoKICAgIHJl
+          dHVybiB0ZXh0LnJlcGxhY2UoT0xELCBaSCBpZiB6aCBlbHNlIEVOKQoKCmRlZiBhbmRyb2lkX3N0cmluZ3MoKSAtPiBpbnQ6CiAgICAiIiJPbmx5IHRoZSB0
+          ZXh0IGluc2lkZSA8c3RyaW5nPiBlbGVtZW50cyDigJQgbmV2ZXIgdGhlIHJlc291cmNlIG5hbWUuIiIiCiAgICBuID0gMAogICAgZm9yIHAgaW4gc29ydGVk
+          KFJPT1QuZ2xvYigiYW5kcm9pZC9zcmMvYW5kcm9pZC9hcHAvc3JjL21haW4vcmVzL3ZhbHVlcyovKnN0cmluZ3MueG1sIikpOgogICAgICAgIHJhdyA9IHAu
+          cmVhZF90ZXh0KGVuY29kaW5nPSJ1dGYtOCIpCiAgICAgICAgemggPSAidmFsdWVzLXpoIiBpbiBwLnBhcmVudC5uYW1lCgogICAgICAgIGRlZiBvbmUobTog
+          cmUuTWF0Y2hbc3RyXSkgLT4gc3RyOgogICAgICAgICAgICBub25sb2NhbCBuCiAgICAgICAgICAgIGJvZHkgPSBtLmdyb3VwKDIpCiAgICAgICAgICAgIG5l
+          dyA9IHN3YXAoYm9keSwgemgpCiAgICAgICAgICAgIGlmIG5ldyAhPSBib2R5OgogICAgICAgICAgICAgICAgbiArPSAxCiAgICAgICAgICAgIHJldHVybiBt
+          Lmdyb3VwKDEpICsgbmV3ICsgbS5ncm91cCgzKQoKICAgICAgICBuZXcgPSByZS5zdWIociIoPHN0cmluZ1xiW14+XSo+KSguKj8pKDwvc3RyaW5nPikiLCBv
+          bmUsIHJhdywgZmxhZ3M9cmUuUykKICAgICAgICBpZiBuZXcgIT0gcmF3OgogICAgICAgICAgICBwLndyaXRlX3RleHQobmV3LCBlbmNvZGluZz0idXRmLTgi
+          KQogICAgICAgICAgICBjaGFuZ2VkLmFwcGVuZChzdHIocC5yZWxhdGl2ZV90byhST09UKSkpCiAgICByZXR1cm4gbgoKCmRlZiBpb3Nfc3RyaW5ncygpIC0+
+          IGludDoKICAgIHAgPSBST09UIC8gImFuZHJvaWQvc3JjL2lvcy9Mb2NhbGl6YWJsZS54Y3N0cmluZ3MiCiAgICBpZiBub3QgcC5pc19maWxlKCk6CiAgICAg
+          ICAgcmV0dXJuIDAKICAgIGRhdGEgPSBqc29uLmxvYWRzKHAucmVhZF90ZXh0KGVuY29kaW5nPSJ1dGYtOCIpKQogICAgbiA9IDAKCiAgICBkZWYgd2Fsayhu
+          b2RlOiBvYmplY3QsIHpoOiBib29sKSAtPiBOb25lOgogICAgICAgIG5vbmxvY2FsIG4KICAgICAgICBpZiBpc2luc3RhbmNlKG5vZGUsIGRpY3QpOgogICAg
+          ICAgICAgICBmb3IgaywgdiBpbiBsaXN0KG5vZGUuaXRlbXMoKSk6CiAgICAgICAgICAgICAgICBpZiBrID09ICJ2YWx1ZSIgYW5kIGlzaW5zdGFuY2Uodiwg
+          c3RyKSBhbmQgT0xEIGluIHY6CiAgICAgICAgICAgICAgICAgICAgbm9kZVtrXSA9IHN3YXAodiwgemgpCiAgICAgICAgICAgICAgICAgICAgbiArPSAxCiAg
+          ICAgICAgICAgICAgICBlbHNlOgogICAgICAgICAgICAgICAgICAgIHdhbGsodiwgemgpCiAgICAgICAgZWxpZiBpc2luc3RhbmNlKG5vZGUsIGxpc3QpOgog
+          ICAgICAgICAgICBmb3IgdiBpbiBub2RlOgogICAgICAgICAgICAgICAgd2Fsayh2LCB6aCkKCiAgICBmb3IgZW50cnkgaW4gKGRhdGEuZ2V0KCJzdHJpbmdz
+          Iikgb3Ige30pLnZhbHVlcygpOgogICAgICAgIGZvciBsYW5nLCBsb2MgaW4gKGVudHJ5LmdldCgibG9jYWxpemF0aW9ucyIpIG9yIHt9KS5pdGVtcygpOgog
+          ICAgICAgICAgICB3YWxrKGxvYywgbGFuZy5zdGFydHN3aXRoKCJ6aCIpKQogICAgcC53cml0ZV90ZXh0KGpzb24uZHVtcHMoZGF0YSwgZW5zdXJlX2FzY2lp
+          PUZhbHNlLCBpbmRlbnQ9Miwgc29ydF9rZXlzPVRydWUpICsgIlxuIiwgZW5jb2Rpbmc9InV0Zi04IikKICAgIGNoYW5nZWQuYXBwZW5kKHN0cihwLnJlbGF0
+          aXZlX3RvKFJPT1QpKSkKICAgIHJldHVybiBuCgoKZGVmIGlvc19wbGlzdCgpIC0+IE5vbmU6CiAgICBmb3IgcCBpbiBST09ULmdsb2IoImFuZHJvaWQvc3Jj
+          L2lvcy8qL0luZm8ucGxpc3QiKToKICAgICAgICByYXcgPSBwLnJlYWRfdGV4dChlbmNvZGluZz0idXRmLTgiKQogICAgICAgIG5ldyA9IHJlLnN1YigKICAg
+          ICAgICAgICAgciIoPGtleT5DRkJ1bmRsZSg/OkRpc3BsYXlOYW1lfE5hbWUpPC9rZXk+XHMqPHN0cmluZz4pKFtePF0qKSg8L3N0cmluZz4pIiwKICAgICAg
+          ICAgICAgbGFtYmRhIG06IG0uZ3JvdXAoMSkgKyBzd2FwKG0uZ3JvdXAoMiksIEZhbHNlKSArIG0uZ3JvdXAoMyksCiAgICAgICAgICAgIHJhdywKICAgICAg
+          ICApCiAgICAgICAgaWYgbmV3ICE9IHJhdzoKICAgICAgICAgICAgcC53cml0ZV90ZXh0KG5ldywgZW5jb2Rpbmc9InV0Zi04IikKICAgICAgICAgICAgY2hh
+          bmdlZC5hcHBlbmQoc3RyKHAucmVsYXRpdmVfdG8oUk9PVCkpKQoKCmRlZiBhZ2VudF9kZWZhdWx0X25hbWUoKSAtPiBOb25lOgogICAgcCA9IFJPT1QgLyAi
+          YW5kcm9pZC9zcmMvYW5kcm9pZC9hcHAvc3JjL21haW4vamF2YS9jb20vb3Blbm1pbmlzL2FwcC9hZ2VudC9Tb3VsU3RvcmUua3QiCiAgICBpZiBub3QgcC5p
+          c19maWxlKCk6CiAgICAgICAgcmV0dXJuCiAgICByYXcgPSBwLnJlYWRfdGV4dChlbmNvZGluZz0idXRmLTgiKQogICAgbmV3ID0gcmF3LnJlcGxhY2UoZidu
+          YW1lID0gIntPTER9IiwnLCBmJ25hbWUgPSAie0VOfSIsJywgMSkKICAgIGlmIG5ldyAhPSByYXc6CiAgICAgICAgcC53cml0ZV90ZXh0KG5ldywgZW5jb2Rp
+          bmc9InV0Zi04IikKICAgICAgICBjaGFuZ2VkLmFwcGVuZChzdHIocC5yZWxhdGl2ZV90byhST09UKSkpCgoKZGVmIHRpdGxlcygpIC0+IE5vbmU6CiAgICBw
+          ID0gUk9PVCAvICJoYXJuZXNzL2Rlc2t0b3AvcGFja2FnZS5qc29uIgogICAgaWYgcC5pc19maWxlKCk6CiAgICAgICAgcmF3ID0gcC5yZWFkX3RleHQoZW5j
+          b2Rpbmc9InV0Zi04IikKICAgICAgICBuZXcgPSByZS5zdWIocicoInByb2R1Y3ROYW1lIlxzKjpccyoiKScgKyBPTEQgKyAnKCIpJywgcmYiXGc8MT57RU59
+          XDIiLCByYXcpCiAgICAgICAgaWYgbmV3ICE9IHJhdzoKICAgICAgICAgICAgcC53cml0ZV90ZXh0KG5ldywgZW5jb2Rpbmc9InV0Zi04IikKICAgICAgICAg
+          ICAgY2hhbmdlZC5hcHBlbmQoc3RyKHAucmVsYXRpdmVfdG8oUk9PVCkpKQogICAgcCA9IFJPT1QgLyAid2ViL2luZGV4Lmh0bWwiCiAgICBpZiBwLmlzX2Zp
+          bGUoKToKICAgICAgICByYXcgPSBwLnJlYWRfdGV4dChlbmNvZGluZz0idXRmLTgiKQogICAgICAgIG5ldyA9IHJlLnN1YihyIig8dGl0bGU+KVtePF0qIiAr
+          IE9MRCArIHIiW148XSooPC90aXRsZT4pIiwgcmYiXGc8MT57RU59XDIiLCByYXcpCiAgICAgICAgaWYgbmV3ICE9IHJhdzoKICAgICAgICAgICAgcC53cml0
+          ZV90ZXh0KG5ldywgZW5jb2Rpbmc9InV0Zi04IikKICAgICAgICAgICAgY2hhbmdlZC5hcHBlbmQoc3RyKHAucmVsYXRpdmVfdG8oUk9PVCkpKQoKCmRlZiBk
+          b2NzKCkgLT4gTm9uZToKICAgIGZpbGVzID0gW1JPT1QgLyAiUkVBRE1FLm1kIiwgUk9PVCAvICJBR0VOVFMubWQiXQogICAgZmlsZXMgKz0gc29ydGVkKChS
+          T09UIC8gImRvY3MiKS5nbG9iKCIqLm1kIikpCiAgICBmb3IgcCBpbiBmaWxlczoKICAgICAgICBpZiBub3QgcC5pc19maWxlKCk6CiAgICAgICAgICAgIGNv
+          bnRpbnVlCiAgICAgICAgcmF3ID0gcC5yZWFkX3RleHQoZW5jb2Rpbmc9InV0Zi04IikKICAgICAgICBpZiBPTEQgbm90IGluIHJhdzoKICAgICAgICAgICAg
+          Y29udGludWUKICAgICAgICB6aCA9IGJvb2wocmUuc2VhcmNoKHIiW1x1NGUwMC1cdTlmZmZdIiwgcmF3KSkKICAgICAgICBwLndyaXRlX3RleHQoc3dhcChy
+          YXcsIHpoKSwgZW5jb2Rpbmc9InV0Zi04IikKICAgICAgICBjaGFuZ2VkLmFwcGVuZChzdHIocC5yZWxhdGl2ZV90byhST09UKSkpCgoKZGVmIG1haW4oKSAt
+          PiBpbnQ6CiAgICBwcmludCgiYW5kcm9pZCBzdHJpbmcgZW50cmllczoiLCBhbmRyb2lkX3N0cmluZ3MoKSkKICAgIHByaW50KCJpb3MgeGNzdHJpbmdzIHZh
+          bHVlczoiLCBpb3Nfc3RyaW5ncygpKQogICAgaW9zX3BsaXN0KCkKICAgIGFnZW50X2RlZmF1bHRfbmFtZSgpCiAgICB0aXRsZXMoKQogICAgZG9jcygpCiAg
+          ICBwcmludChmImZpbGVzIGNoYW5nZWQ6IHtsZW4oY2hhbmdlZCl9IikKICAgIGZvciBjIGluIGNoYW5nZWQ6CiAgICAgICAgcHJpbnQoIiAiLCBjKQogICAg
+          cmV0dXJuIDAKCgppZiBfX25hbWVfXyA9PSAiX19tYWluX18iOgogICAgcmFpc2UgU3lzdGVtRXhpdChtYWluKCkpCg==
+B64
+          base64 -d /tmp/brand.b64 > /tmp/brand_xiaoman.py
+          python3 /tmp/brand_xiaoman.py
+          git config user.name 'brand-bot'
+          git config user.email 'brand-bot@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then echo 'nothing to change'; exit 0; fi
+          git commit -m 'chore(brand): rename visible product name to Xiaoman / Xiaoman'
+          git push origin HEAD:main
+          git log -1 --format='%H %s'
