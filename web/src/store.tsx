@@ -37,7 +37,7 @@ import type {
 } from "./types";
 
 /** Tab bar: chat · feed · ideas · goals · library. Memory, devices, connections and settings live behind the avatar. */
-export type Tab = "chat" | "feed" | "ideas" | "goals" | "library" | "memory" | "devices" | "connections" | "channels" | "skills" | "you" | "account" | "coding" | "avatar";
+export type Tab = "chat" | "call" | "feed" | "ideas" | "goals" | "library" | "memory" | "devices" | "connections" | "channels" | "skills" | "you" | "account" | "coding" | "avatar";
 /**
  * The page this app is framed in (the showcase's simulated phone), when it can be named: the
  * ancestor's origin where the browser exposes it, else the referrer's. A message to the parent

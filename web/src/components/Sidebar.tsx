@@ -1,4 +1,4 @@
-import { Bug, LayoutGrid, Lightbulb, Menu, MessageCircle, MonitorSmartphone, Newspaper, Search, SlidersHorizontal, SquareCheckBig, TerminalSquare, UserRound, Wrench, X } from "lucide-react";
+import { Bug, LayoutGrid, Lightbulb, Menu, MessageCircle, MonitorSmartphone, Newspaper, Search, SlidersHorizontal, SquareCheckBig, TerminalSquare, Wrench, X } from "lucide-react";
 import { useRef, useState, type ReactNode } from "react";
 import { desktopBridge } from "../desktop";
 import { useDeveloperTools } from "../devtools";
@@ -119,16 +119,6 @@ export function Sidebar() {
         </nav>
 
         <div className="flex w-full flex-col items-center gap-0.5 px-2 pb-3 pt-2">
-          <button
-            type="button"
-            onClick={() => setTab("account")}
-            aria-current={state.tab === "account" ? "page" : undefined}
-            className={railButton(state.tab === "account")}
-            title={state.hub?.account.signed_in ? state.hub.account.hint : t("Account")}
-          >
-            <UserRound size={21} className={state.tab === "account" ? "text-accent" : "text-fg/60"} />
-            <span className="max-w-full truncate">{t("Account")}</span>
-          </button>
           <button type="button" onClick={() => setTab("you")} aria-current={state.tab === "you" ? "page" : undefined} className={railButton(state.tab === "you")}>
             <SlidersHorizontal size={21} className={state.tab === "you" ? "text-accent" : "text-fg/60"} />
             <span className="max-w-full truncate">{t("Settings")}</span>

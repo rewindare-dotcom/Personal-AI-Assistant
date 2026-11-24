@@ -452,7 +452,6 @@ export function ModelCard({
   };
 
   const groups: Array<{ id: string; title: string; ids: string[] }> = [
-    { id: "cloud", title: t("Your account"), ids: [] },
     { id: "openai", title: t("OpenAI-compatible · Chat Completions"), ids: [] },
     { id: "responses", title: t("Responses API"), ids: [] },
     { id: "local", title: t("Local or your own endpoint"), ids: [] },

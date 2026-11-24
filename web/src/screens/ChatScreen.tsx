@@ -1,4 +1,4 @@
-import { ArrowUp, ChevronDown, FileText, Loader2, Menu, MessageSquarePlus, Monitor, MonitorSmartphone, Moon, Phone, Plus, Smartphone, Square, Table2, Trash2, Wand2, X } from "lucide-react";
+import { ArrowUp, ChevronDown, FileText, Loader2, Menu, MessageSquarePlus, Monitor, MonitorSmartphone, Moon, Phone, Plus, Smartphone, Square, Table2, Trash2, Wand2, X, PhoneCall } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { api, fileUrl } from "../api";
 import { AllowanceHeadsUp } from "../components/AllowanceWays";
@@ -246,7 +246,21 @@ export function ChatScreen() {
               <Menu size={22} />
             </MuseRoundButton>
           }
-          trailing={<MoreMenu actions={[{ label: t("Coding agents"), onClick: () => setTab("coding") }]} />}
+          trailing={
+            <div className="flex items-center gap-2">
+              {/* the call: the agent's face and voice, one press away, in the corner a phone
+                  app puts its call button */}
+              <button
+                type="button"
+                onClick={() => setTab("call")}
+                aria-label={t("Call {name}", { name })}
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-surface text-accent shadow-[0_1px_4px_rgba(0,0,0,0.14)] hover:bg-surface-2 dark:border dark:border-border dark:shadow-none"
+              >
+                <PhoneCall size={20} />
+              </button>
+              <MoreMenu actions={[{ label: t("Coding agents"), onClick: () => setTab("coding") }]} />
+            </div>
+          }
           under={
             thread && thread.id !== "main" ? (
               thread.device ? (

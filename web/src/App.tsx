@@ -1,6 +1,7 @@
-import { LayoutGrid, Lightbulb, Loader2, MessageCircle, Newspaper, SquareCheckBig, WifiOff } from "lucide-react";
+import { LayoutGrid, Lightbulb, Loader2, Menu, MessageCircle, Newspaper, SlidersHorizontal, SquareCheckBig, WifiOff } from "lucide-react";
 import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 import { api, setToken } from "./api";
+import { Avatar } from "./components/Avatar";
 import { BrandMark } from "./components/BrandMark";
 import { DesktopRemoteHint } from "./components/DesktopRemoteHint";
 import { ChatsDrawer } from "./components/ChatsDrawer";
@@ -20,6 +21,7 @@ import { cx } from "./util";
 // the first time it is shown, so the first paint does not carry the provider form or the
 // coding console.
 const AccountScreen = lazy(() => import("./screens/AccountScreen").then((m) => ({ default: m.AccountScreen })));
+const CallScreen = lazy(() => import("./screens/CallScreen").then((m) => ({ default: m.CallScreen })));
 const AvatarStudioScreen = lazy(() => import("./screens/AvatarStudioScreen").then((m) => ({ default: m.AvatarStudioScreen })));
 const ChannelsScreen = lazy(() => import("./screens/ChannelsScreen").then((m) => ({ default: m.ChannelsScreen })));
 const CodingScreen = lazy(() => import("./screens/CodingScreen").then((m) => ({ default: m.CodingScreen })));
@@ -78,7 +80,7 @@ export default function App() {
     const jump = () => {
       const tab = window.location.hash.slice(1) as Tab;
       if (tab && TABS.some((x) => x.id === tab)) setTab(tab);
-      else if (tab === "devices" || tab === "you" || tab === "memory" || tab === "connections" || tab === "channels" || tab === "skills" || tab === "account" || tab === "coding" || tab === "avatar") setTab(tab);
+      else if (tab === "call" || tab === "devices" || tab === "you" || tab === "memory" || tab === "connections" || tab === "channels" || tab === "skills" || tab === "account" || tab === "coding" || tab === "avatar") setTab(tab);
     };
     jump();
     window.addEventListener("hashchange", jump);
@@ -115,11 +117,6 @@ export default function App() {
     );
   }
 
-  const pendingApprovals = state.pendingApprovals.length;
-  // a plan change waiting for your answer is worth a red badge; the count of goals is not
-  const proposals = state.goals.filter((g) => g.proposal && g.status !== "cancelled").length;
-  const feedUnseen = state.pendingApprovals.filter((a) => a.ts > state.feedSeenAt).length;
-
   // One column on the phone; on a wide screen (a full browser) and in the desktop app at any
   // width, a sidebar takes over from the tab bar and the chats sheet — same screens either side.
   return (
@@ -143,9 +140,10 @@ export default function App() {
         {!state.lite && <DesktopRemoteHint />}
         {/* `tabbar-room` keeps the screens, the chat's composer included, above the floating bar;
             a wide window has the sidebar instead and gives the room back. */}
-        <main className={cx("tabbar-room mx-auto min-h-0 w-full flex-1 wide:max-w-[900px]", !state.lite && "wide:pb-0")}>
+        <main className={cx("mx-auto min-h-0 w-full flex-1 wide:max-w-[900px]")}>
           <Suspense fallback={<Loading />}>
             {state.tab === "chat" && <ChatScreen />}
+            {state.tab === "call" && <CallScreen />}
             {state.tab === "feed" && <FeedScreen />}
             {state.tab === "ideas" && <IdeasScreen />}
             {state.tab === "goals" && <GoalsScreen />}
@@ -161,44 +159,10 @@ export default function App() {
             {state.tab === "avatar" && <AvatarStudioScreen />}
           </Suspense>
         </main>
-        {/* Muse's bottom bar, as the Android app draws it: a floating frosted-glass pill, five glyphs,
-            icons only. The pill sits 12px above the bottom edge, blurs what is behind it and carries
-            a hairline edge; the current tab shows its filled glyph on an ink indicator (black in the
-            light theme, white in the dark one, the glyph in the opposite colour), the others stay
-            outlined in the muted grey. No labels: the fill and the indicator are the
-            state. The pill is as wide as the chat's composer above it (the same 12px from the sides,
-            `px-3` on the Composer's form), 420px at most and centred on a wider screen; the five
-            slots share it equally and the indicator disc keeps its 60 by 46 inside the slot. In lite
-            (the phone in the showcase) it shows whatever the width; otherwise a wide window has the
-            sidebar instead. The nav itself lets taps through to the screen; only the pill takes them. */}
-        <nav className={cx("tabbar-float pointer-events-none absolute inset-x-0 z-20 flex justify-center px-3", !state.lite && "wide:hidden")}>
-          <ul className="pointer-events-auto flex w-full max-w-[420px] items-center gap-0.5 rounded-full bg-surface-2/55 px-3.5 py-1.5 ring-1 ring-border/50 backdrop-blur-2xl">
-            {TABS.map((tab) => {
-              const active = state.tab === tab.id;
-              const badge = tab.id === "chat" ? pendingApprovals : tab.id === "feed" ? feedUnseen : tab.id === "goals" ? proposals : 0;
-              return (
-                <li key={tab.id} className="min-w-0 flex-1">
-                  <button
-                    type="button"
-                    onClick={() => setTab(tab.id)}
-                    aria-label={t(tab.label)}
-                    aria-current={active ? "page" : undefined}
-                    className={cx("flex h-[46px] w-full items-center justify-center", active ? "text-ink-fg" : "text-muted hover:text-fg")}
-                  >
-                    <span className={cx("relative flex h-[46px] w-full max-w-[60px] items-center justify-center rounded-full transition-colors duration-300", active && "bg-ink")}>
-                      {tab.icon(active)}
-                      {badge > 0 && (
-                        <span className="absolute right-2.5 top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-bold text-white">
-                          {badge}
-                        </span>
-                      )}
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        {/* No bottom tab bar: the screens live behind one menu button in the top-left corner.
+            The menu is a sheet that slides in from the left, the same list a wide window shows in
+            its rail, so the phone and the desktop reach every screen the same way. */}
+        <NavMenu />
       </div>
       <ChatsDrawer />
       <FileViewer path={state.viewer} onClose={() => openFile(null)} />
@@ -209,6 +173,89 @@ export default function App() {
         </div>
       )}
     </div>
+  );
+}
+
+/**
+ * The one way into every screen on a narrow window: a menu button that floats over the screen's
+ * top-left corner and opens a sheet with the same rail a wide window shows. It replaces the
+ * bottom tab bar, so nothing sits at the bottom of the chat over the composer.
+ */
+function NavMenu() {
+  const { state, setTab } = useStore();
+  const t = useT();
+  const [open, setOpen] = useState(false);
+  const name = state.profile?.name ?? "nanoMuse";
+  const pendingApprovals = state.pendingApprovals.length;
+  const feedUnseen = state.pendingApprovals.filter((a) => a.ts > state.feedSeenAt).length;
+  const proposals = state.goals.filter((g) => g.proposal && g.status !== "cancelled").length;
+  const items: Array<{ id: Tab; label: string; icon: ReactNode; badge?: number }> = [
+    { id: "chat", label: "Chat", icon: <MessageCircle {...glyph(state.tab === "chat")} />, badge: pendingApprovals },
+    { id: "feed", label: "Feed", icon: <Newspaper {...glyph(state.tab === "feed")} />, badge: feedUnseen },
+    { id: "ideas", label: "Ideas", icon: <Lightbulb {...glyph(state.tab === "ideas")} /> },
+    { id: "goals", label: "Goals", icon: <SquareCheckBig {...glyph(state.tab === "goals")} />, badge: proposals },
+    { id: "library", label: "Library", icon: <LayoutGrid {...glyph(state.tab === "library")} /> },
+  ];
+  const pick = (id: Tab) => {
+    setTab(id);
+    setOpen(false);
+  };
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label={t("Menu")}
+        aria-expanded={open}
+        className="absolute left-3 top-3 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-surface-2/70 text-fg ring-1 ring-border/50 backdrop-blur-xl wide:hidden"
+      >
+        <Menu size={20} />
+      </button>
+      {open && (
+        <div className="fixed inset-0 z-50 flex wide:hidden">
+          <button type="button" aria-label={t("Close")} onClick={() => setOpen(false)} className="absolute inset-0 bg-black/35 backdrop-blur-[2px]" />
+          <div className="relative flex h-full w-[264px] flex-col bg-surface shadow-[0_12px_40px_-12px_rgba(0,0,0,0.4)]">
+            <div className="flex items-center gap-2.5 px-4 pb-3 pt-5">
+              <Avatar profile={state.profile} status={state.status} size={40} />
+              <span className="truncate text-[14px] font-semibold">{name}</span>
+            </div>
+            <nav className="flex-1 overflow-y-auto px-2">
+              {items.map((it) => {
+                const active = state.tab === it.id;
+                return (
+                  <button
+                    key={it.id}
+                    type="button"
+                    onClick={() => pick(it.id)}
+                    aria-current={active ? "page" : undefined}
+                    className={cx(
+                      "relative mt-0.5 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[14px] transition",
+                      active ? "bg-surface-2 font-semibold text-fg" : "text-fg/75 hover:bg-surface-2/60",
+                    )}
+                  >
+                    <span className={active ? "text-accent" : "text-fg/60"}>{it.icon}</span>
+                    <span className="flex-1">{t(it.label)}</span>
+                    {it.badge ? (
+                      <span className="flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-bold text-white">{it.badge}</span>
+                    ) : null}
+                  </button>
+                );
+              })}
+            </nav>
+            <div className="border-t border-border px-2 pb-4 pt-2">
+              <button
+                type="button"
+                onClick={() => pick("you")}
+                className={cx("flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[14px]", state.tab === "you" ? "bg-surface-2 font-semibold" : "text-fg/75 hover:bg-surface-2/60")}
+              >
+                <SlidersHorizontal size={20} className={state.tab === "you" ? "text-accent" : "text-fg/60"} />
+                {t("Settings")}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

@@ -643,15 +643,14 @@ class CloudSettings(BaseModel):
     Signed in, the relay can be the model provider and the hub is reachable."""
 
     base_url: str = "https://cloud.nanomuse.cn"
-    # Sign-in is part of setting up: the first-run flow does not finish without
-    # an account (with it, the relay can be the model and the devices meet).
-    # Self-hosters who run without a relay set this to false.
-    required: bool = True
-    # The account's models as a source (the apps' *Use nanoMuse Cloud models* switch). Off,
-    # the relay leaves the automatic order of the hands, pictures and clips, and the hub's
-    # listing; the sign-in itself stays (sync, the devices). Only the explicit "use nanoMuse
-    # Cloud this time" button reaches it then.
-    models: bool = True
+    # Off by default: this build is a self-hosted foundation — no account, no relay.
+    # The model and anything remote are the person's own (an endpoint and a key), so
+    # nothing stands between opening the app and talking to it. Turn it back on with
+    # `[cloud] required = true` if you want the relay's sign-in, sync and devices.
+    required: bool = False
+    # The account's models as a source. Off by default too: the model is the person's own
+    # endpoint and key, never ours. This only matters when `required` is turned back on.
+    models: bool = False
     # Conversations synced between the account's devices (docs/every-device.md): the text
     # of the chats on the relay, so every device shows the same ones. The person's switch
     # in Settings → Data controls is what counts once set; this is the default for it.
