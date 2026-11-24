@@ -1,0 +1,44 @@
+name: Xiaoman verify
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install
+        working-directory: web
+        run: npm ci || npm install
+      - name: Typecheck
+        working-directory: web
+        run: npx tsc --noEmit
+      - name: Build
+        working-directory: web
+        run: npx vite build
+      - name: Done
+        run: echo "web build ok"
+  runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Config defaults
+        run: |
+          pip install pydantic
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, ".")
+          from nanomuse.config import CloudSettings
+          c = CloudSettings()
+          print("required:", c.required, "| models:", c.models)
+          assert c.required is False, "sign-in must be off by default"
+          assert c.models is False, "cloud models must be off by default"
+          print("config ok")
+          PY
