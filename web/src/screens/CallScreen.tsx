@@ -1,4 +1,4 @@
-import { Maximize2, Mic, MicOff, PhoneOff, Video, VideoOff } from "lucide-react";
+import { Maximize2, Mic, MicOff, PhoneOff, SwitchCamera, Video, VideoOff } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Avatar } from "../components/Avatar";
 import { useT } from "../i18n";
@@ -24,9 +24,11 @@ export function CallScreen() {
   const { state, setTab, toast } = useStore();
   const t = useT();
   const name = state.profile?.name ?? "nanoMuse";
-  const [video, setVideo] = useState(false);
+  const [video, setVideo] = useState(true); // a video call starts with the camera on
   const [mic, setMic] = useState(true);
   const [seconds, setSeconds] = useState(0);
+  // whose picture fills the canvas: the agent's by default, yours after one press of the swap
+  const [selfMain, setSelfMain] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
@@ -83,27 +85,41 @@ export function CallScreen() {
 
   return (
     <div className="relative flex h-full min-h-0 flex-col overflow-hidden bg-[#0b0d11] text-white">
-      {/* the agent, full canvas */}
+      {/* Two people in the call: the agent on its disc, you on your camera. One fills the canvas and
+          the other sits in the corner the way a call app draws it; the swap button trades them. */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-        <div
-          className={cx(
-            "rounded-full transition-all duration-[1200ms]",
-            speaking ? "ring-[10px] ring-white/25" : "ring-0",
-          )}
-        >
-          <Avatar profile={state.profile} status={state.status} size={220} />
-        </div>
+        {!selfMain && (
+          <div
+            className={cx(
+              "rounded-full transition-all duration-[1200ms]",
+              speaking ? "ring-[10px] ring-white/25" : "ring-0",
+            )}
+          >
+            <Avatar profile={state.profile} status={state.status} size={220} />
+          </div>
+        )}
       </div>
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[42vh] bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.22),transparent_70%)]" />
 
-      {/* your own camera, small, in the corner a call app puts it */}
+      {/* your picture: the canvas itself when you are the main frame, a corner tile otherwise */}
       {video && (
         <video
           ref={videoRef}
           muted
           playsInline
-          className="absolute right-3 top-14 z-20 h-[168px] w-[112px] rounded-2xl border border-white/15 object-cover shadow-lg"
+          className={cx(
+            selfMain
+              ? "absolute inset-0 z-[5] h-full w-full bg-black object-cover"
+              : "absolute right-3 top-14 z-20 h-[168px] w-[112px] rounded-2xl border border-white/15 object-cover shadow-lg",
+          )}
         />
+      )}
+
+      {/* the agent, as a corner tile once you are the main frame */}
+      {video && selfMain && (
+        <div className="pointer-events-none absolute right-3 top-14 z-20 flex h-[168px] w-[112px] items-center justify-center rounded-2xl border border-white/15 bg-black/55 backdrop-blur">
+          <Avatar profile={state.profile} status={state.status} size={72} />
+        </div>
       )}
 
       {/* name and clock */}
@@ -122,6 +138,9 @@ export function CallScreen() {
           </CallButton>
           <CallButton on={video} label={video ? t("Turn video off") : t("Turn video on")} onClick={() => setVideo((v) => !v)}>
             {video ? <Video size={22} /> : <VideoOff size={22} />}
+          </CallButton>
+          <CallButton on={selfMain} label={t("Swap pictures")} onClick={() => setSelfMain((v) => !v)}>
+            <SwitchCamera size={22} />
           </CallButton>
           <CallButton label={t("Full screen")} onClick={() => document.documentElement.requestFullscreen?.().catch(() => undefined)}>
             <Maximize2 size={22} />

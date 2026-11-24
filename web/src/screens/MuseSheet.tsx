@@ -8,8 +8,12 @@ import {
   Clock,
   Copy,
   Fingerprint,
+  LayoutGrid,
+  Lightbulb,
   Loader2,
   Mail,
+  MessageCircle,
+  Newspaper,
   Pencil,
   Play,
   Repeat,
@@ -17,7 +21,9 @@ import {
   ShieldCheck,
   ShieldOff,
   Smartphone,
+  SlidersHorizontal,
   Square,
+  SquareCheckBig,
   Webhook,
   X,
 } from "lucide-react";
@@ -32,7 +38,7 @@ import { Sheet } from "../components/Sheet";
 import { SentinelReviewSettings } from "../components/SentinelReviewSettings";
 import { SentinelReviewRow } from "../components/SentinelReviewRow";
 import { intlLocale, localReason, useT } from "../i18n";
-import { useStore } from "../store";
+import { useStore, type Tab } from "../store";
 import type {
   ActivityData,
   AuditEntry,
@@ -76,7 +82,7 @@ export function MuseSheet({ open, onClose }: { open: boolean; onClose: () => voi
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  const go = (tab: "memory" | "you" | "avatar", hash?: string) => {
+  const go = (tab: Tab, hash?: string) => {
     onClose();
     if (hash) history.replaceState(null, "", `${window.location.pathname}${window.location.search}#${hash}`);
     setTab(tab);
@@ -100,6 +106,17 @@ export function MuseSheet({ open, onClose }: { open: boolean; onClose: () => voi
       setStopping(false);
     }
   };
+
+  // The five screens the bottom bar used to carry, here in the same order and with the same
+  // badges: the face is the one door to them now that the bar is gone.
+  const screens: Array<{ id: Tab; label: string; icon: ReactNode; badge?: number }> = [
+    { id: "chat", label: t("Chat"), icon: <MessageCircle size={22} /> },
+    { id: "feed", label: t("Feed"), icon: <Newspaper size={22} />, badge: state.pendingApprovals.filter((a) => a.ts > state.feedSeenAt).length },
+    { id: "ideas", label: t("Ideas"), icon: <Lightbulb size={22} /> },
+    { id: "goals", label: t("Goals"), icon: <SquareCheckBig size={22} />, badge: state.goals.filter((g) => g.proposal && g.status !== "cancelled").length },
+    { id: "library", label: t("Library"), icon: <LayoutGrid size={22} /> },
+    { id: "you", label: t("Settings"), icon: <SlidersHorizontal size={22} /> },
+  ];
 
   const panes: Array<{ icon: ReactNode; label: string; badge?: number }> = [
     { icon: <ClipboardList size={22} />, label: t("Activity") },
@@ -175,6 +192,31 @@ export function MuseSheet({ open, onClose }: { open: boolean; onClose: () => voi
 
       {/* Muse's four-way switch: glyphs on a bar, a pill under the current one */}
       <div role="tablist" className="mb-5 flex rounded-2xl bg-surface-2/60 p-1">
+        {/* the screens: what the bottom bar used to hold, one press from the face */}
+        <div className="mb-3 grid grid-cols-3 gap-2">
+          {screens.map((sc) => {
+            const on = state.tab === sc.id;
+            return (
+              <button
+                key={sc.id}
+                type="button"
+                onClick={() => go(sc.id)}
+                aria-current={on ? "page" : undefined}
+                className={cx(
+                  "relative flex flex-col items-center gap-1 rounded-2xl px-2 py-2.5 text-[11.5px] transition",
+                  on ? "bg-surface-2 font-semibold text-fg" : "text-fg/75 hover:bg-surface-2/60",
+                )}
+              >
+                <span className={on ? "text-accent" : "text-fg/60"}>{sc.icon}</span>
+                {sc.label}
+                {sc.badge ? (
+                  <span className="absolute right-1.5 top-1.5 flex h-[16px] min-w-[16px] items-center justify-center rounded-full bg-rose-500 px-1 text-[9.5px] font-bold text-white">{sc.badge}</span>
+                ) : null}
+              </button>
+            );
+          })}
+        </div>
+
         {panes.map((p, i) => (
           <button
             key={p.label}
