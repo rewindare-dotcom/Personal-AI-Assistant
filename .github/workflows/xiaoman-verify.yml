@@ -32,13 +32,4 @@ jobs:
       - name: Config defaults
         run: |
           pip install pydantic
-          python - <<'PY'
-          import sys
-          sys.path.insert(0, ".")
-          from nanomuse.config import CloudSettings
-          c = CloudSettings()
-          print("required:", c.required, "| models:", c.models)
-          assert c.required is False, "sign-in must be off by default"
-          assert c.models is False, "cloud models must be off by default"
-          print("config ok")
-          PY
+          python -c "import sys; sys.path.insert(0,'.'); from nanomuse.config import CloudSettings; c=CloudSettings(); print('required', c.required, 'models', c.models); assert c.required is False and c.models is False; print('config ok')"
