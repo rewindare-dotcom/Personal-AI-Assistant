@@ -1,0 +1,24 @@
+name: Clean promo content
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run cleanup shell script
+        run: |
+          set -euo pipefail
+          git config user.name 'clean-bot'
+          git config user.email 'clean-bot@users.noreply.github.com'
+          bash .github/workflows/cleanup.sh
+          git add -A
+          if git diff --cached --quiet; then echo 'nothing to remove'; exit 0; fi
+          git commit -m 'chore: remove promotional and contributor content'
+          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git push origin main
+          git log -1 --format='%H %s'
